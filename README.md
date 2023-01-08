@@ -94,7 +94,7 @@ var apiKey = 'your dreamstudio api key';
 })();
 ```
 
-### Engines list:
+### Get engines list:
 
 ```typescript
 import { getEngines } from 'dreamstudio.js';
@@ -104,3 +104,12 @@ var apiKey = 'your dreamstudio api key';
   console.log(engines);
 })();
 ```
+
+## To do list:
+
+- [x] User data
+- [x] Engines list
+- [x] Text to image
+- [ ] Image to image
+- [ ] Image to image/masking
+- [ ] Improve error messages
