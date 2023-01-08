@@ -1,4 +1,4 @@
-import { textToImg, getEngines } from './generation.js';
+import { textToImg, getEngines, imgToimg } from './generation.js';
 import { getUser, getBalance } from './user.js';
 
-export { textToImg, getEngines, getUser, getBalance };
+export { textToImg, imgToimg, getEngines, getUser, getBalance };

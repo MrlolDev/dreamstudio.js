@@ -1,4 +1,4 @@
-import fetch from 'cross-fetch';
+import fetch from 'node-fetch';
 import type { User, Balance } from './types.js';
 const apiHost = 'https://api.stability.ai';
 

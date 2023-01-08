@@ -54,7 +54,7 @@ var apiKey = 'your dreamstudio api key';
 | stable-diffusion-512-v2-0  | Stable Diffusion v2.0     | PICTURE |
 | stable-diffusion-768-v2-0  | Stable Diffusion v2.0-768 | PICTURE |
 | stable-diffusion-512-v2-1  | 'Stable Diffusion v2.1    | PICTURE |
-| stable-diffusion-768-v2-   | Stable Diffusion v2.1-768 | PICTURE |
+| stable-diffusion-768-v2-1  | Stable Diffusion v2.1-768 | PICTURE |
 | stable-inpainting-v1-0     | Stable Inpainting v1.0    | PICTURE |
 | stable-inpainting-512-v2-0 | Stable Inpainting v2.0    | PICTURE |
 
@@ -75,7 +75,55 @@ var apiKey = 'your dreamstudio api key';
 
 #### Image to image
 
-Under development
+It would log an object with the property artifacts that contains an array of the images. Every image object have the base64 property which is the image.
+
+```typescript
+import { textToImg } from 'dreamstudio.js';
+var apiKey = 'your dreamstudio api key';
+(async () => {
+  const initImage = fs.readFileSync('./examples/init_image.png'); // the initial image path
+  var images = await textToImg({
+    apiKey,
+    initImage,
+    engineId: 'stable-inpainting-512-v2-0',
+    text_prompts: [
+      {
+        text: 'add a picture of van gogh to the wall',
+        weight: 1,
+      },
+    ],
+  });
+  fs.writeFile('./examples/out.png', images.artifacts[0].base64, 'base64'); // save the result
+})();
+```
+
+##### Engines list:
+
+| Id                         | Name                      | Type    |
+| -------------------------- | ------------------------- | ------- |
+| stable-diffusion-v1        | Stable Diffusion v1.4     | PICTURE |
+| stable-diffusion-v1-5      | Stable Diffusion v1.5     | PICTURE |
+| stable-diffusion-512-v2-0  | Stable Diffusion v2.0     | PICTURE |
+| stable-diffusion-768-v2-0  | Stable Diffusion v2.0-768 | PICTURE |
+| stable-diffusion-512-v2-1  | 'Stable Diffusion v2.1    | PICTURE |
+| stable-diffusion-768-v2-1  | Stable Diffusion v2.1-768 | PICTURE |
+| stable-inpainting-v1-0     | Stable Inpainting v1.0    | PICTURE |
+| stable-inpainting-512-v2-0 | Stable Inpainting v2.0    | PICTURE |
+
+##### Options:
+
+| Option Name          | Type   | Default | Required |
+| -------------------- | ------ | ------- | -------- |
+| apiKey               | string | none    | true     |
+| engineId             | string | none    | true     |
+| cfg_scale            | number | 7       | false    |
+| clip_guidance_preset | string | NONE    | false    |
+| width                | number | 512     | false    |
+| height               | number | 512     | false    |
+| samples              | number | 1       | false    |
+| seed                 | number | random  | false    |
+| steps                | number | 50      | false    |
+| text_prompts         | Array  | none    | true     |
 
 #### Image to image/Masking
 

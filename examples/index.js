@@ -1,5 +1,13 @@
-import { textToImg, getEngines, getUser, getBalance } from '../dist/index.js';
-var apiKey = 'your dreamstudio api key';
+import {
+  textToImg,
+  getEngines,
+  getUser,
+  getBalance,
+  imgToimg,
+} from '../dist/index.js';
+import fs from 'node:fs';
+
+var apiKey = 'your dream studio key';
 (async () => {
   var user = await getUser(apiKey);
   //console.log(user);
@@ -7,7 +15,7 @@ var apiKey = 'your dreamstudio api key';
   //console.log(balance);
   var engines = await getEngines(apiKey);
   //console.log(engines);
-  var images = await textToImg({
+  /*var images = await textToImg({
     apiKey,
     engineId: 'stable-diffusion-v1-5',
     text_prompts: [
@@ -17,5 +25,25 @@ var apiKey = 'your dreamstudio api key';
       },
     ],
   });
-  console.log(images);
+  console.log(images);*/
+  const initImage = fs.readFileSync('./examples/init_image.png');
+  var images = await imgToimg({
+    apiKey,
+    initImage,
+    engineId: 'stable-diffusion-512-v2-0',
+    text_prompts: [
+      {
+        text: 'add a picture of van gogh to the wall',
+        weight: 1,
+      },
+    ],
+  });
+  fs.writeFile(
+    './examples/out.png',
+    images.artifacts[0].base64,
+    'base64',
+    function (err) {
+      console.log(err);
+    },
+  );
 })();
