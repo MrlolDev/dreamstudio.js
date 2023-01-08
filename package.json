@@ -1,0 +1,32 @@
+{
+  "name": "dreamstudio.js",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "A nodejs package for interact with the stability.ai REST API",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrlolDev/dreamstudio.js.git"
+  },
+  "keywords": [
+    "dreamstudio",
+    "stable diffusion",
+    "stability ai"
+  ],
+  "author": "MrlolDev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrlolDev/dreamstudio.js/issues"
+  },
+  "homepage": "https://github.com/MrlolDev/dreamstudio.js#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "cross-fetch": "^3.1.5"
+  }
+}
