@@ -1,6 +1,6 @@
 {
   "name": "dreamstudio.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "description": "A nodejs package for interact with the stability.ai REST API",
   "main": "dist/index.js",
@@ -14,7 +14,10 @@
   "keywords": [
     "dreamstudio",
     "stable diffusion",
-    "stability ai"
+    "stability ai",
+    "ai",
+    "image generator",
+    "dreamstudio.js"
   ],
   "author": "MrlolDev",
   "license": "ISC",
