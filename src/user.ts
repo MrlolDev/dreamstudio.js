@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import axios from 'axios';
 import type { User, Balance } from './types.js';
 const apiHost = 'https://api.stability.ai';
 
@@ -7,19 +7,18 @@ export async function getUser(apiKey: string) {
 
   if (!apiKey) throw new Error('Missing Stability API key.');
 
-  const response = await fetch(url, {
-    method: 'GET',
+  const response = await axios.get(url, {
     headers: {
       Authorization: apiKey,
     },
   });
 
-  if (!response.ok) {
-    throw new Error(`Non-200 response: ${await response.text()}`);
+  if (response.status != 200) {
+    throw new Error(`Non-200 response: ${response.statusText}`);
   }
 
   // Do something with the user...
-  const user = (await response.json()) as User;
+  const user = response.data as User;
   return user;
 }
 
@@ -28,18 +27,17 @@ export async function getBalance(apiKey: string) {
 
   if (!apiKey) throw new Error('Missing Stability API key.');
 
-  const response = await fetch(url, {
-    method: 'GET',
+  const response = await axios.get(url, {
     headers: {
       Authorization: apiKey,
     },
   });
 
-  if (!response.ok) {
-    throw new Error(`Non-200 response: ${await response.text()}`);
+  if (response.status != 200) {
+    throw new Error(`Non-200 response: ${response.statusText}`);
   }
 
   // Do something with the balance...
-  const balance = (await response.json()) as Balance;
+  const balance = response.data as Balance;
   return balance;
 }
