@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import axios from 'axios';
 import type { EngineId, IntRange, Payload } from './types.js';
 import FormData from 'form-data';
 const apiHost = 'https://api.stability.ai';
@@ -40,14 +40,9 @@ export async function textToImg({
 
   if (!apiKey) throw new Error('Missing Stability API key.');
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: apiKey,
-    },
-    body: JSON.stringify({
+  const response = await axios.post(
+    url,
+    {
       cfg_scale: cfg_scale,
       clip_guidance_preset: clip_guidance_preset,
       height: height,
@@ -56,14 +51,21 @@ export async function textToImg({
       seed: seed,
       steps: steps,
       text_prompts: text_prompts,
-    }),
-  });
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: apiKey,
+      },
+    },
+  );
 
-  if (!response.ok) {
-    throw new Error(`Non-200 response: ${await response.text()}`);
+  if (response.status !== 200) {
+    throw new Error(`Non-200 response: ${await response.statusText}`);
   }
 
-  var json = await response.json();
+  var json = await response.data;
   return json;
 }
 
@@ -128,21 +130,26 @@ export async function imgToimg({
     }),
   );
 
-  const response = await fetch(url, {
-    method: 'POST',
+  const response = await axios({
+    url: url,
+    data: formData,
+    method: 'post',
     headers: {
       ...formData.getHeaders(),
       Accept: 'application/json',
       Authorization: apiKey,
     },
-    body: formData,
   });
 
-  if (!response.ok) {
-    throw new Error(`Non-200 response: ${await response.text()}`);
+  if (response.status != 200) {
+    if (response.data) {
+      throw new Error(`Non-200 response: ${response.data.message}`);
+    } else {
+      throw new Error(`Non-200 response: ${response.statusText}`);
+    }
   }
 
-  var json = await response.json();
+  var json = response.data;
   return json;
 }
 

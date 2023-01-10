@@ -7,7 +7,7 @@ import {
 } from '../dist/index.js';
 import fs from 'node:fs';
 
-var apiKey = 'your dream studio key';
+var apiKey = 'your dreamstudio key';
 (async () => {
   var user = await getUser(apiKey);
   //console.log(user);
@@ -26,14 +26,16 @@ var apiKey = 'your dream studio key';
     ],
   });
   console.log(images);*/
+
   const initImage = fs.readFileSync('./examples/init_image.png');
   var images = await imgToimg({
     apiKey,
     initImage,
     engineId: 'stable-diffusion-512-v2-0',
+    steps: 150,
     text_prompts: [
       {
-        text: 'add a picture of van gogh to the wall',
+        text: 'make the duck yellow',
         weight: 1,
       },
     ],
