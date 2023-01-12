@@ -78,11 +78,11 @@ var apiKey = 'your dreamstudio api key';
 It would log an object with the property artifacts that contains an array of the images. Every image object have the base64 property which is the image.
 
 ```typescript
-import { textToImg } from 'dreamstudio.js';
+import { imgToimg } from 'dreamstudio.js';
 var apiKey = 'your dreamstudio api key';
 (async () => {
   const initImage = fs.readFileSync('./examples/init_image.png'); // the initial image path
-  var images = await textToImg({
+  var images = await imgToimg({
     apiKey,
     initImage,
     engineId: 'stable-inpainting-512-v2-0',
