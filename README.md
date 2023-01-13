@@ -158,6 +158,6 @@ var apiKey = 'your dreamstudio api key';
 - [x] User data
 - [x] Engines list
 - [x] Text to image
-- [ ] Image to image
-- [ ] Image to image/masking
+- [x] Image to image
+- [x] Image to image/masking
 - [ ] Improve error messages
